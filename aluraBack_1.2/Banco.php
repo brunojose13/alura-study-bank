@@ -21,7 +21,7 @@ $contaJulia = new Conta(
         $address)
     );
 
-echo "(antes) Contas ativas: " . Conta::getNumberOfOnlineAccounts() . PHP_EOL . PHP_EOL;
+echo "(anteriormente) Contas ativas: " . Conta::getNumberOfOnlineAccounts() . PHP_EOL . PHP_EOL;
 
 // Actions:
 $contaBruno->depositBalance(5000);
@@ -38,7 +38,7 @@ showResults($contaJulia);
 
 unset($contaJulia);
 
-echo "(depois) Contas ativas: " . Conta::getNumberOfOnlineAccounts() . PHP_EOL . PHP_EOL;
+echo "(posteriormente) Contas ativas: " . Conta::getNumberOfOnlineAccounts() . PHP_EOL . PHP_EOL;
 
 
 /// /////////////////////////////////////////////////// ///
