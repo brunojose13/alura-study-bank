@@ -1,14 +1,19 @@
 <?php
 
+namespace Alura\Bank\Model\Account;
+
+use Alura\Bank\Model\Account\Titular;
+
 class Conta
 {
-    private $user;
+    private $customer;
     private $bankBalance;
     private static $onlineAccounts = 0;
 
-    public function __construct(Titular $user)
+    public function __construct(Titular $customer)
+
     {
-        $this->user = $user;
+        $this->customer = $customer;
         $this->bankBalance = 0.0;
         self::$onlineAccounts++;
     }
@@ -19,11 +24,11 @@ class Conta
     }
 
 
-    /// /////////////////////////////////////////////////// ///
+    // =-=-=-=-=-=-= //
 
-    public function getUser(): Titular
+    public function getCustomer(): Titular
     {
-        return $this->user;
+        return $this->customer;
     }
 
     public function getBalance(): float
@@ -36,9 +41,6 @@ class Conta
         return self::$onlineAccounts;
     }
 
-    
-    /// /////////////////////////////////////////////////// ///
-
     public function takeBalance(float $moneyToTake): void
     {
         if ($moneyToTake < $this->getBalance()) {   
@@ -48,7 +50,7 @@ class Conta
 
         echo "Saldo indisponível";
     }
-    
+
     public function depositBalance(float $moneyToSave): void
     {
         if ($moneyToSave > 0) {
@@ -59,11 +61,11 @@ class Conta
         echo "O valor de depósito precisa ser positivo!";
     }
 
-    public function moneyTransfer(Conta $otherUser, float $moneyToTransfer): void
+    public function moneyTransfer(Conta $anotherCustomer, float $moneyToTransfer): void
     { 
         if ($moneyToTransfer < $this->getBalance()) {   
             $this->takeBalance($moneyToTransfer);
-            $otherUser->depositBalance($moneyToTransfer);
+            $anotherCustomer->depositBalance($moneyToTransfer);
             return;
         }
 

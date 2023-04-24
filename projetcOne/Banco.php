@@ -4,8 +4,19 @@ require_once 'src/Conta.php';
 require_once 'src/Titular.php';
 
 // Accounts:
-$contaBruno = new Conta(new Titular('Bruno José', '495.679.608-01'));
-$contaJulia = new Conta(new Titular('Júlia Ribeiro Gonçalves', '987.654.321-01'));
+$contaBruno = new Conta(
+    new Titular(
+        'Bruno José', 
+        '495.679.608-01'
+    )
+);
+
+$contaJulia = new Conta(
+    new Titular(
+        'Júlia Ribeiro Gonçalves', 
+        '987.654.321-01'
+    )
+);
 
 echo "(antes) Contas ativas: " . Conta::getNumberOfOnlineAccounts() . PHP_EOL . PHP_EOL;
 

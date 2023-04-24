@@ -1,5 +1,7 @@
 <?php
 
+namespace Alura\Bank;
+
 class Cpf
 {
     private $cpf;
@@ -20,8 +22,8 @@ class Cpf
         $this->cpf = $informedCpf;
     }
 
-    
-    /// /////////////////////////////////////////////////// ///
+
+    // =-=-=-=-=-=-= //
 
     public function returnCpf(): string
     {

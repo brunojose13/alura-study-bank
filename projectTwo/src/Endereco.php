@@ -1,5 +1,7 @@
 <?php
 
+namespace Alura\Bank;
+
 class Endereco
 {
     private $street;
@@ -7,7 +9,7 @@ class Endereco
     private $neighborhood;
     private $city;
 
-    function __construct(string $street, string $number, string $neighborhood, string $city)
+    public function __construct(string $street, string $number, string $neighborhood, string $city)
     {
         $this->street = $street;
         $this->number = $number;
@@ -16,7 +18,7 @@ class Endereco
     }
 
 
-    /// /////////////////////////////////////////////////// ///
+    // =-=-=-=-=-=-= //
 
     public function getStreet(): string
     {
@@ -28,6 +30,11 @@ class Endereco
         return $this->number;
     }
 
+    public function setNumber(string $newNumber): void
+    {
+        $this->number = $newNumber;
+    }
+
     public function getNeighborhood(): string
     {
         return $this->neighborhood;
@@ -37,9 +44,6 @@ class Endereco
     {
         return $this->city;
     }
-
-
-    /// /////////////////////////////////////////////////// ///
 
     public function getFullAddressFormatted()
     {
