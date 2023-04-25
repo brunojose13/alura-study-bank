@@ -21,6 +21,7 @@ class Conta
     public function __destruct()
     {
         self::$onlineAccounts--;
+        echo 'Conta ' . $this->getCustomer()->getName() . ' desativada com sucesso!' . PHP_EOL . PHP_EOL;
     }
 
 
