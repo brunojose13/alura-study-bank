@@ -7,14 +7,14 @@ use Alura\Bank\Model\Account\Titular;
 class Conta
 {
     private $customer;
-    private $bankBalance;
+    private float $balance;
     private static $onlineAccounts = 0;
 
     public function __construct(Titular $customer)
 
     {
         $this->customer = $customer;
-        $this->bankBalance = 0.0;
+        $this->balance = 0.0;
         self::$onlineAccounts++;
     }
 
@@ -31,10 +31,30 @@ class Conta
     {
         return $this->customer;
     }
+    
+    public function getBalance(): string
+    {  
+        $str_balance = strval($this->balance);
+        $dotPosition = strpos($str_balance, '.');
 
-    public function getBalance(): float
-    {
-        return $this->bankBalance;
+        $str_balanceInteger = substr_replace($str_balance, '', $dotPosition);
+
+        $complement = substr($str_balance, $dotPosition);
+        $complement = str_replace('.', ',', $complement);
+
+        $units = strlen($str_balanceInteger);
+
+        $position = 3;
+
+        while ($position < $units) {
+            $str_balanceInteger = substr_replace($str_balanceInteger, '.', -$position, 0);
+            $position += 4;
+            $units ++;        
+        }
+
+        $str_balance = substr_replace($str_balanceInteger, 'R$ ', 0, 0) . $complement;
+
+        return $str_balance;
     }
 
     public static function getNumberOfOnlineAccounts(): int
@@ -44,8 +64,10 @@ class Conta
 
     public function takeBalance(float $moneyToTake): void
     {
-        if ($moneyToTake < $this->getBalance()) {   
-            $this->bankBalance -= $moneyToTake;
+        $moneyToTake = (float)number_format($moneyToTake , 2);
+
+        if ($moneyToTake < $this->balance) {   
+            $this->balance -= $moneyToTake;
             return;
         }
 
@@ -54,22 +76,26 @@ class Conta
 
     public function depositBalance(float $moneyToSave): void
     {
+        $moneyToSave = (float)number_format($moneyToSave , 2);
+
         if ($moneyToSave > 0) {
-            $this->bankBalance += $moneyToSave;
+            $this->balance += $moneyToSave;
             return;
         }
 
         echo "O valor de depósito precisa ser positivo!";
     }
 
-    public function moneyTransfer(Conta $anotherCustomer, float $moneyToTransfer): void
-    { 
-        if ($moneyToTransfer < $this->getBalance()) {   
+    public function transferTo(Conta $anotherCustomer, float $moneyToTransfer): void
+    {
+        (float)$moneyToTransfer = number_format($moneyToTransfer , 4);
+
+        if ($moneyToTransfer < $this->balance) {   
             $this->takeBalance($moneyToTransfer);
             $anotherCustomer->depositBalance($moneyToTransfer);
             return;
         }
 
-        echo "Saldo indisponível para efetuar a transferencia!";
+        echo "Saldo indisponível para efetuar a transferencia!" . PHP_EOL . PHP_EOL;
     }
 }

@@ -30,11 +30,6 @@ class Endereco
         return $this->number;
     }
 
-    public function setNumber(string $newNumber): void
-    {
-        $this->number = $newNumber;
-    }
-
     public function getNeighborhood(): string
     {
         return $this->neighborhood;

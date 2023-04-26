@@ -6,10 +6,9 @@ use Alura\Bank\Model\Account\Conta;
 use Alura\Bank\Model\Account\Titular;
 use Alura\Bank\Endereco;
 
-
 function fim()
 {
-    echo 'Fim do programa!' . PHP_EOL;
+    echo PHP_EOL . PHP_EOL . PHP_EOL . 'Fim do programa!' . PHP_EOL;
 }
 
 function showResults(Conta $account): void
@@ -52,18 +51,16 @@ $contaJulia = new Conta(
     )
 );
 
-$contaJulia->getCustomer()->getAddress()->setNumber('40');
-
 echo "(inicialmente) Contas ativas: " . Conta::getNumberOfOnlineAccounts() . PHP_EOL . PHP_EOL;
 
 // Actions:
-$contaBruno->depositBalance(5000);
-$contaBruno->takeBalance(1000);
+$contaBruno->depositBalance(15000);
+// $contaBruno->takeBalance(1000);
 
-$contaJulia->depositBalance(6000);
-$contaJulia->takeBalance(3000);
+$contaJulia->depositBalance(10000);
+// $contaJulia->takeBalance(3000);
 
-$contaBruno->moneyTransfer($contaJulia, 2000);
+$contaBruno->transferTo($contaJulia, 2500.99);
 
 // Results:
 showResults($contaBruno);
@@ -71,7 +68,6 @@ showResults($contaJulia);
 echo '------------' . PHP_EOL . PHP_EOL;
 
 unset($contaJulia);
-
-echo "(atualmente) Contas ativas: " . Conta::getNumberOfOnlineAccounts() . PHP_EOL . PHP_EOL;
+echo "(atualmente) Contas ativas: " . Conta::getNumberOfOnlineAccounts();
 
 fim();
