@@ -6,7 +6,6 @@ use Alura\Bank\Model\Account\Authenticator;
 use Alura\Bank\Model\Account\Titular;
 use Alura\Bank\Endereco;
 use Alura\Bank\Database;
-use Exception;
 
 class Login extends Database implements Authenticator
 {
