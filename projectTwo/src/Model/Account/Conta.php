@@ -3,6 +3,7 @@
 namespace Alura\Bank\Model\Account;
 
 use Alura\Bank\Model\Account\Titular;
+use Alura\Bank\Model\Account\Login;
 
 class Conta
 {
@@ -10,12 +11,15 @@ class Conta
     private float $balance;
     private static $onlineAccounts = 0;
 
-    public function __construct(Titular $customer)
-
+    public function __construct(Login $login)
     {
-        $this->customer = $customer;
+        $this->customer = $login->authenticate();
         $this->balance = 0.0;
         self::$onlineAccounts++;
+
+        if (!isset($this->customer)) {
+            exit();
+        }
     }
 
     public function __destruct()
@@ -28,7 +32,7 @@ class Conta
     // =-=-=-=-=-=-= //
 
     public function getCustomer(): Titular
-    {
+    {   
         return $this->customer;
     }
     
@@ -64,8 +68,6 @@ class Conta
 
     public function takeBalance(float $moneyToTake): void
     {
-        $moneyToTake = (float)number_format($moneyToTake , 2);
-
         if ($moneyToTake < $this->balance) {   
             $this->balance -= $moneyToTake;
             return;
@@ -76,8 +78,6 @@ class Conta
 
     public function depositBalance(float $moneyToSave): void
     {
-        $moneyToSave = (float)number_format($moneyToSave , 2);
-
         if ($moneyToSave > 0) {
             $this->balance += $moneyToSave;
             return;
@@ -88,9 +88,7 @@ class Conta
 
     public function transferTo(Conta $anotherCustomer, float $moneyToTransfer): void
     {
-        (float)$moneyToTransfer = number_format($moneyToTransfer , 4);
-
-        if ($moneyToTransfer < $this->balance) {   
+        if ($moneyToTransfer <= $this->balance) {   
             $this->takeBalance($moneyToTransfer);
             $anotherCustomer->depositBalance($moneyToTransfer);
             return;

@@ -3,8 +3,7 @@
 require_once 'autoload.php';
 
 use Alura\Bank\Model\Account\Conta;
-use Alura\Bank\Model\Account\Titular;
-use Alura\Bank\Endereco;
+use Alura\Bank\Model\Account\Login;
 
 function fim()
 {
@@ -24,34 +23,16 @@ function showResults(Conta $account): void
 
 // Accounts:
 $contaBruno = new Conta(
-    new Titular(
-        'Bruno José', 
-        '123.456.789-10', 
-
-        new Endereco(
-            'Rua João Pires Monteiro', 
-            '687', 
-            'Jd. Sapopemba', 
-            'São Paulo'
-        )
-    )
-);
-
-$contaJulia = new Conta(
-    new Titular(
-        'Júlia Ribeiro Gonçalves', 
-        '987.654.321-01',
-
-        new Endereco(
-            'Rua João Pires Monteiro', 
-            '466', 
-            'Jd. Jangadeiro', 
-            'São Paulo'
-        )
-    )
+    new Login('bruno@gmail.com', '12345')
 );
 
 echo "(inicialmente) Contas ativas: " . Conta::getNumberOfOnlineAccounts() . PHP_EOL . PHP_EOL;
+
+$contaJulia = new Conta(
+    new Login('julia@gmail.com', '54321')
+);
+
+echo "Contas ativas: " . Conta::getNumberOfOnlineAccounts() . PHP_EOL . PHP_EOL;
 
 // Actions:
 $contaBruno->depositBalance(15000);
@@ -60,7 +41,7 @@ $contaBruno->depositBalance(15000);
 $contaJulia->depositBalance(10000);
 // $contaJulia->takeBalance(3000);
 
-$contaBruno->transferTo($contaJulia, 2500.99);
+$contaBruno->transferTo($contaJulia, 2500.5);
 
 // Results:
 showResults($contaBruno);
